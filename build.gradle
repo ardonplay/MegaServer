@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.graalvm.buildtools.native' version '0.9.27'
 }
 
 group = 'io.github.ardonplay.normalserver'
@@ -7,9 +9,28 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    mavenLocal()
+    gradlePluginPortal()
+}
+application {
+    mainClass = 'io.github.ardonplay.normalserver.Main'
+    mainModule = 'io.github.ardonplay.normalserver'
+}
+
+graalvmNative {
+    toolchainDetection = true
 }
 
 dependencies {
+    implementation 'commons-cli:commons-cli:1.5.0'
+    implementation group: 'ch.qos.logback', name: 'logback-core', version: '1.4.11'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.4.11'
+    implementation 'org.hibernate.orm:hibernate-core:6.3.1.Final'
+    implementation 'org.postgresql:postgresql:42.6.0'
+    implementation "io.github.ardonplay:javatronilizer:0.1.0"
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 }
